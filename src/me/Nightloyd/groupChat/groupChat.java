@@ -1,6 +1,7 @@
 package me.Nightloyd.groupChat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
@@ -12,6 +13,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 
 public class groupChat extends JavaPlugin{
 	ArrayList<String> groupChat = new ArrayList<>();
+	HashMap<String, Channel> channelMap = new HashMap<String, Channel>();
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static groupChat plugin;
 	
