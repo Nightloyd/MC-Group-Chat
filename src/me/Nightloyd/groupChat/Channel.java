@@ -52,7 +52,7 @@ public class Channel {
 		for(int i = 0; i < members.size(); i++){
 			msg += members.get(i) + ", ";
 		}
-		player.sendMessage(ChatColor.DARK_GREEN + "Admin Channel Members: " + msg);
+		player.sendMessage(ChatColor.DARK_GREEN + name + "Members: " + msg);
 	}
 	
 	public String getChName(){

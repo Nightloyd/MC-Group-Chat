@@ -36,10 +36,12 @@ public class groupChat extends JavaPlugin{
 			if(args.length == 0)
 				player.sendMessage(ChatColor.DARK_RED + "You need to specify a Channel name!");
 			else{
-				if(channelMap.get(args[0]) == null)
+				if(channelMap.get(args[0]) == null){
 					channelMap.put(args[0], new Channel(args[0], player.getName()));
+					player.sendMessage(ChatColor.DARK_GREEN + "The group \"" + args[0] + "\" has been created!");
+				}
 				else
-					player.sendMessage(ChatColor.DARK_RED + "This group does already exist! Choose another name!");
+					player.sendMessage(ChatColor.DARK_RED + "This group already exist! Choose another name!");
 			}
 		}
 		
@@ -47,15 +49,19 @@ public class groupChat extends JavaPlugin{
 			if(args.length == 0)
 				player.sendMessage(ChatColor.DARK_RED + "You need to specify where and what you want to send!");
 			else{
-				if(channelMap.get(args[0]).searchForMember(player.getName())){
-					String msg = "";
-					for(int n = 1; n < args.length; n++){	// Puts all words in one string
-						msg += args[n] + " ";
+				if(channelMap.get(args[0]) != null){
+					if(channelMap.get(args[0]).searchForMember(player.getName())){
+						String msg = "";
+						for(int n = 1; n < args.length; n++){	// Puts all words in one string
+							msg += args[n] + " ";
+						}
+						channelMap.get(args[0]).chSendMsg(player, msg);
 					}
-					channelMap.get(args[0]).chSendMsg(player, msg);
+					else
+						player.sendMessage(ChatColor.DARK_RED + "You are not a member of this group!");
 				}
 				else
-					player.sendMessage(ChatColor.DARK_RED + "You are not a member of this group!");
+					player.sendMessage(ChatColor.DARK_RED + "This group does not exist!");
 			}
 			/*int i = 0;
 			String msg = "";
@@ -78,7 +84,7 @@ public class groupChat extends JavaPlugin{
 				if(channelMap.get(args[0]) != null){
 					if(channelMap.get(args[0]).searchForMember(player.getName())){
 						if(channelMap.get(args[0]).addChMember(args[1]))			// True if the player has been added
-							player.sendMessage(ChatColor.DARK_GREEN + args[1] + " has been added to the channel " + args[0]);
+							player.sendMessage(ChatColor.DARK_GREEN + args[1] + " has been added to the channel \"" + args[0] + "\"!");
 						else
 							player.sendMessage(ChatColor.DARK_RED + args[1] + " is already a member of this group!");
 					}
@@ -86,7 +92,7 @@ public class groupChat extends JavaPlugin{
 						player.sendMessage(ChatColor.DARK_RED + "You are not a member of this group!");
 				}
 				else
-					player.sendMessage(ChatColor.DARK_RED + "This group does not exist");
+					player.sendMessage(ChatColor.DARK_RED + "This group does not exist!");
 			}
 			
 			/*if(!groupChat.contains(args[0])){
@@ -99,9 +105,13 @@ public class groupChat extends JavaPlugin{
 		
 		else if(commandLabel.equalsIgnoreCase("grpList")){
 			if(args.length == 0)
-				player.sendMessage(ChatColor.DARK_RED + "You need to specify which group to print the members list from");
-			else
-				channelMap.get(args[0]).printMemberList(player);
+				player.sendMessage(ChatColor.DARK_RED + "You need to specify which group to print the members list from!");
+			else{
+				if(channelMap.get(args[0]) != null)
+					channelMap.get(args[0]).printMemberList(player);
+				else
+					player.sendMessage(ChatColor.DARK_RED + "This group does not exist!");
+			}
 			/*String msg = "";
 			for(int i = 0; i < groupChat.size(); i++){
 				msg += groupChat.get(i) + ", ";
@@ -113,17 +123,21 @@ public class groupChat extends JavaPlugin{
 			if(args.length == 0)
 				player.sendMessage(ChatColor.DARK_RED + "You need to specify which group and who to remove!");
 			else{
-				if(channelMap.get(args[0]).searchForMember(player.getName())){
-					if(channelMap.get(args[0]).rmChMember(args[1])){
-						player.sendMessage(ChatColor.DARK_GREEN + args[1] + " has been removed from the group!");
-						if(channelMap.get(args[0]).getMemberCount() == 0)
-							channelMap.remove(args[0]);
+				if(channelMap.get(args[0]) != null){
+					if(channelMap.get(args[0]).searchForMember(player.getName())){
+						if(channelMap.get(args[0]).rmChMember(args[1])){
+							player.sendMessage(ChatColor.DARK_GREEN + args[1] + " has been removed from the group!");
+							if(channelMap.get(args[0]).getMemberCount() == 0)
+								channelMap.remove(args[0]);
+						}
+						else
+							player.sendMessage(ChatColor.DARK_RED + args[1] + " is not a member of this group, can't remove!");
 					}
 					else
-						player.sendMessage(ChatColor.DARK_RED + args[1] + " is not a member of this group, can't remove!");
+						player.sendMessage(ChatColor.DARK_RED + "You are not a member of this group!");
 				}
 				else
-					player.sendMessage(ChatColor.DARK_RED + "You are not a member of this group!");
+					player.sendMessage(ChatColor.DARK_RED + "This group does not exist!");
 			}
 			
 			/*if(groupChat.contains(args[0])){

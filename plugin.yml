@@ -3,6 +3,8 @@ main: me.Nightloyd.groupChat.groupChat
 version: 1.0
 description: Sends Pm to all admins.
 commands:
+  grpCreate:
+    description: Create a group.
   grpPm: 
     description: Sends message to all admins.
   grpAdd:
