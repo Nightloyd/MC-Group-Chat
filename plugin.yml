@@ -1,0 +1,13 @@
+name: groupChat
+main: me.Nightloyd.groupChat.groupChat
+version: 1.0
+description: Sends Pm to all admins.
+commands:
+  grpPm: 
+    description: Sends message to all admins.
+  grpAdd:
+    description: Add Member to the Admin Channel.
+  grpList:
+    description: List all the members of the Admin Channel.
+  grpRemove:
+    description: Remove specified member from the Admin Channel.
