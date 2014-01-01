@@ -58,4 +58,15 @@ public class Channel {
 	public String getChName(){
 		return name;
 	}
+	
+	public void chSendMsg(Player player, String msg){
+		int i = 0;
+		while(i < members.size()){
+			if(player.getServer().getPlayer(members.get(i)) != null){
+				Player targetPlayer = player.getServer().getPlayerExact(members.get(i));
+				targetPlayer.sendMessage(ChatColor.DARK_GREEN + name + ": " + player.getName() + ": " + msg);
+			}
+			i++;
+		}
+	}
 }
